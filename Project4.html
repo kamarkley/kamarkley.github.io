@@ -1,0 +1,158 @@
+<!DOCTYPE HTML>
+<!--
+	Massively by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Generic Page - Massively by HTML5 UP</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						
+					</header>
+
+				<!-- Nav -->
+					<nav id="nav">
+						<ul class="links">
+							<li><a href="index.html">My Projects</a></li>
+							<li class="active"><a href="Project4.html">This Project</a></li>
+							<li><a href="AboutMe.html">About Me</a></li>
+						</ul>
+						<ul class="icons">
+							<li><a href="#" class="icon brands fa-linkedin"><span class="label">LinkedIn</span></a></li>
+							<li><a href="#" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+					<div id="main">
+
+						<!-- Post -->
+							<section class="post">
+								<h1>Scalable Last-Mile Delivery</h1>
+                            	<h3>Executive Summary</h3>
+                            	<p>Developed as part of a highly selective National Science Foundation Research Experience for Undergraduates (NSF REU) program, this project tackles the immense computational complexity of the Vehicle Routing Problem (VRP) within joint truck-drone last-mile delivery networks. By mapping dense spatial distribution environments into high-scale graphs (<em>N</em> &ge; 1000 nodes), this research introduces a novel, two-stage optimization pipeline. A Graph Neural Network (GNN) is trained as a binary edge-classifier to aggressively prune non-critical travel paths, transforming a dense network into a sparse subgraph before executing a metaheuristic local search solver to compute near-optimal routes with heavily minimized runtime overhead.</p>
+
+                            	<h3>Data Infrastructure &amp; Graph-Theoretical Transformations</h3>
+                            	<p>To establish a viable environment for operations research solvers, the research pipeline abstractly converts continuous physical flight dynamics into highly optimized discrete network structures:</p>
+
+                            	<ul>
+                            	    <li><strong>Continuous-to-Discrete Transformation:</strong> Developed the framework to map continuous-time, three-dimensional UAV trajectories—originally constrained by free-space path loss equations and strict 3D geofences—into a discrete, weighted graph <em>G = (V, E)</em>. Nodes represent fixed base stations or delivery coordinates, while edge weights are mapped directly to Euclidean travel vectors.</li>
+                            	    <li><strong>Deterministic Subgraph Precomputation:</strong> Engineered localized, brute-force routing engines using dynamic programming to solve exact minimum-weight Hamiltonian circuits for small-scale subgraphs (|<em>V </em>| = 5). This allowed for the rapid precomputation of candidate baseline paths that satisfy mission-critical time limits (&lambda;) prior to physical flight orchestration.</li>
+                            	    <li><strong>Lightweight Python Simulation:</strong> Programmed a specialized discrete-event simulator to mimic live hardware platform conditions. The simulator models environmental parameters, signal telemetry, and flight-path coordinates, allowing the routing agent to dynamically test and adjust behavior based on real-time Signal-to-Noise Ratio (SNR) and antenna proximity feedback loops.</li>
+                            	</ul>
+
+                            	<pre><code>[ Full-Mesh Spatial Graph ]             [ GAT Edge Pruning ]         [ DSU Connectivity Recovery ]
+(Dense Network Complexity)            (Self-Attention Weights)          (Sparse Solvable Subgraph)
+          ○ ─── ○                              ○ ─── ○                            ○ ─── ○
+        ╱  │ ╳ │  ╲                          ╱         ╲                        ╱         ╲
+       ○ ─╳─ ○ ─╳─ ○           ───►         ○           ○ ─── ○      ───►      ○           ○ ─── ○
+        ╲  │ ╳ │  ╱                          ╲         ╱                        ╲         ╱
+          ○ ─── ○                              ○ ─── ○                            ○ ─── ○</code></pre>
+
+                            	<h3>GNN Architecture Engineering &amp; Hyperparameter Optimization</h3>
+                            	<p>While standard operations research algorithms scale poorly as node count increases, embedding a learning-driven edge classifier scales the optimization process. Deep learning execution focused on navigating spatial generalization boundaries:</p>
+
+                            	<ul>
+                            	    <li><strong>The Structural Bottleneck of GraphSAGE:</strong> Initial iterations leveraging the GraphSAGE framework utilized specialized max-pooling aggregation layers to combat oversmoothing across deep networks. While highly efficient on low-node networks, the mean-aggregate baseline failed to generalize structurally when exposed to massive, multi-cluster spatial scales.</li>
+                            	    <li><strong>Transition to Graph Attention Networks (GAT):</strong> To address the generalization bottleneck, a <strong>Graph Attention Network (GAT)</strong> was implemented within a PyTorch Geometric pipeline accelerated via a T4 GPU on CUDA. By utilizing multi-head self-attention mechanisms, the GAT model learns to dynamically weight spatial adjacency values, effectively calculating edge probabilities across dense multi-node environments.</li>
+                            	    <li><strong>Tuned GAT Hyperparameter Configuration:</strong> The pipeline optimized model stability and convergence using a strict multi-layer training protocol over 200 epochs:</li>
+                            	</ul>
+
+                            	<table border="1" cellpadding="5" cellspacing="0" style="border-collapse:collapse; width:100%;">
+                            	    <thead>
+                            	        <tr style="background-color: #f2f2f2;">
+                            	            <th style="text-align: left;">Deep Learning Parameter</th>
+                            	            <th style="text-align: left;">Architectural Configuration</th>
+                            	            <th style="text-align: left;">Operational Purpose</th>
+                            	        </tr>
+                            	    </thead>
+                            	    <tbody>
+                            	        <tr>
+                            	            <td><strong>Model Architecture</strong></td>
+                            	            <td>Graph Attention Network (GAT)</td>
+                            	            <td>Anisotropic edge propagation via self-attention mechanisms.</td>
+                            	        </tr>
+                            	        <tr>
+                            	            <td><strong>Hidden Channels</strong></td>
+                            	            <td>128 Channels</td>
+                            	            <td>Maximizes individual feature representation capacity per layer.</td>
+                            	        </tr>
+                            	        <tr>
+                            	            <td><strong>Structural Layers</strong></td>
+                            	            <td>3 Sequential Layers</td>
+                            	            <td>Balances receptive field depth with structural feature integrity.</td>
+                            	        </tr>
+                            	        <tr>
+                            	            <td><strong>Multi-Head Attention</strong></td>
+                            	            <td>4 Heads</td>
+                            	            <td>Stabilizes the learning process and captures multi-faceted spatial relations.</td>
+                            	        </tr>
+                            	        <tr>
+                            	            <td><strong>Regularization / Dropout</strong></td>
+                            	            <td>0.3 Dropout Rate</td>
+                            	            <td>Prevents overfitting on synthetic, geofenced training coordinate logs.</td>
+                            	        </tr>
+                            	        <tr>
+                            	            <td><strong>Learning Rate Optimization</strong></td>
+                            	            <td>0.001 (Adam Optimizer)</td>
+                            	            <td>Ensures stable gradient step execution across high-density graph structures.</td>
+                            	        </tr>
+                            	    </tbody>
+                            	</table>
+
+                            	<h3>Experimental Benchmarking &amp; Computational Results</h3>
+                            	<p>The GAT-pruned sparse subgraphs were compiled and validated against the industrial-grade Google OR-Tools baseline solver over 500 independent experimental iterations on unseen test data. Post-pruning graph integrity was maintained by enforcing a top-12 edge filter per node paired with a Disjoint Set Union (DSU) connectivity recovery algorithm:</p>
+
+                            	<ul>
+                            	    <li><strong>The Non-Linear Speedup Scaling:</strong> The hybrid pipeline demonstrated distinct performance scaling behaviors. On small-scale 100-node networks, the GNN inference step introduced a temporary computation overhead (-211.4% runtime latency). However, as network density expanded to extreme scales, the edge-pruning pipeline achieved massive relative speedups.</li>
+                            	    <li><strong>1000-Node Performance Horizon:</strong> On high-density 1000-node routing problems, the GAT-pruned metaheuristic framework delivered an average <strong>13.2% computational runtime speedup</strong> over the unpruned industrial baseline.</li>
+                            	    <li><strong>Route Quality Preservation:</strong> The drastic reduction in search-space complexity preserved near-optimal route layouts, with the total tour length shifting by a nominal <strong>0.7% average distance delta</strong>. Furthermore, due to the structural simplification of the edge matrix, the GNN pipeline identified a *shorter* total path than the standard OR-Tools baseline in approximately 31% of experimental runs.</li>
+                            	</ul>
+
+                            	<span class="image main"><img src="images/drone.png" alt="" /></span>
+                            	<h3>Strategic Operations &amp; Logistics Recommendations</h3>
+                            	<p>The statistical validity of this hybrid framework yields critical operational design principles for next-generation automated distribution networks:</p>
+
+                            	<ol>
+                            	    <li><strong>Implement Learning-Driven Heuristics as Optimization Gateways:</strong> Prove that deep learning models do not need to solve the full combinatorial routing task alone. Instead, deploying GNN pipelines as lightning-fast preprocessing layers to strip away 90% of redundant search space maximizes the localized efficiency of downstream mathematical solvers.</li>
+                            	    <li><strong>Accelerated Network Pruning Optimization:</strong> Future infrastructure modifications must focus on expediting the post-inference top-<em>k</em> edge filtering stage. Because sorting and heap allocation of edge probabilities currently consumes more pipeline time than deep learning forward passes, optimizing array manipulation scripts will yield an immediate, compounding system speedup.</li>
+                            	    <li><strong>Augment Loss Functions for Multi-Objective Resilience:</strong> Scale the core model out of simulated environments by expanding the edge-classification objective function. Incorporating real-time communication telemetry, such as Received Signal Strength Indicators (RSSI), directly into the GNN loss function will allow the system to simultaneously minimize delivery distance while maximizing signal reliability along active flight corridors.</li>
+                            	</ol>
+
+							</section>
+
+					</div>
+
+				<!-- Footer -->
+					
+
+				<!-- Copyright -->
+					<div id="copyright">
+						<ul><li>&copy; 2026 Kenzie Markley. All rights reserved.</li></ul>
+					</div>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>

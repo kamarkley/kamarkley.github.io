@@ -1,0 +1,176 @@
+<!DOCTYPE HTML>
+<!--
+	Massively by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Generic Page - Massively by HTML5 UP</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						
+					</header>
+
+				<!-- Nav -->
+					<nav id="nav">
+						<ul class="links">
+							<li><a href="index.html">My Projects</a></li>
+							<li class="active"><a href="Project1.html">This Project</a></li>
+							<li><a href="AboutMe.html">About Me</a></li>
+						</ul>
+						<ul class="icons">
+							<li><a href="#" class="icon brands fa-linkedin"><span class="label">LinkedIn</span></a></li>
+							<li><a href="#" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+					<div id="main">
+
+						<!-- Post -->
+							<section class="post">
+								<h1>Modeling <br />
+									Biological Aging</h1>
+								<h3>Executive Summary</h3>
+								<p>This project establishes a supervised learning framework to identify the primary clinical and socioeconomic drivers of mean leukocyte telomere length (<code>TELOMEAN</code>) using the multi-year <strong>NHANES (1999–2002)</strong> dataset. Rather than optimizing blindly for predictive scores, this study focuses on <strong>model integrity, rigorous data cleaning, and variance-bias diagnostics</strong> to isolate the environmental and social "weathering" components of biological aging.</p>
+
+								<h3>Data Engineering &amp; Targeted Preprocessing</h3>
+								<p>Real-world epidemiological data contains structural traps. The initial dataset of 21,004 records was optimized down to an analytic sample of <strong>5,801 complete observations</strong> using a disciplined, domain-specific ETL pipeline:</p>
+
+								<ul>
+							    	<li><strong>Sentinel Value Auditing:</strong> Replaced non-biological survey artifacts and invalid placeholder responses (e.g., survey codes 7, 9, 888) with <code>NaN</code> on a feature-specific basis to eliminate artificial variance.</li>
+							    	<li><strong>Leakage Prevention:</strong> Implemented a Scikit-Learn <code>ColumnTransformer</code> inside an isolated cross-validation loop. Continuous variables were standardized via <code>StandardScaler</code>, and categorical features were processed via <code>OneHotEncoder(handle_unknown='ignore')</code> exclusively within training folds.</li>
+							    	<li><strong>Impact:</strong> Cleaning removed non-biological noise, increasing the baseline Elastic Net R² from 0.1884 to <strong>0.1930</strong> and dropping the Root Mean Squared Error (RMSE).</li>
+								</ul>
+
+								<h3>Multi-Architecture Modeling Strategy</h3>
+								<p>To evaluate variance-bias trade-offs, three distinct model architectures were optimized using <code>GridSearchCV</code> paired with a strict <strong>5-fold cross-validation</strong> protocol (<em>k</em> = 5, shuffled with a fixed seed).</p>
+
+								<pre><code>              [ Cleaned NHANES Dataset (N = 5,801) ]
+                                 │
+                [ 5-Fold Cross-Validation Split ]
+            ┌────────────────────┼────────────────────┐
+            ▼                    ▼                    ▼
+    [ Elastic Net ]        [ Linear SVR ]      [ Random Forest ]
+ (Sparse L1 Regular)     (Margin-Based SVR)    (Nonparametric Ensemble)
+            └────────────────────┼────────────────────┘
+                    	         ▼
+                     [ Diagnostic Audit Matrix ]
+                    	Evaluated via R² &amp; RMSE
+								</code></pre>
+
+								<h3>Cross-Validation &amp; GridSearch Optimization Results</h3>
+
+								<table border="1" cellpadding="5" cellspacing="0" style="border-collapse:collapse; width:100%;">
+							    	<thead>
+							        	<tr style="background-color: #f2f2f2;">
+							            	<th style="text-align: left;">Model Architecture</th>
+							            	<th style="text-align: center;">CV Mean R²</th>
+							            	<th style="text-align: center;">CV Mean RMSE</th>
+							            	<th style="text-align: left;">Optimal Hyperparameters</th>
+							        	</tr>
+							    	</thead>
+							    	<tbody>
+							        	<tr>
+							           	 <td><strong>Elastic Net</strong></td>
+							            	<td style="text-align: center;"><strong>0.1930</strong></td>
+							            	<td style="text-align: center;"><strong>0.2323</strong></td>
+							            	<td><code>alpha: 0.001</code>, <code>L1_ratio: 1.0</code> (Pure Lasso)</td>
+							        	</tr>
+							        	<tr>
+							            	<td><strong>Linear SVR</strong></td>
+							            	<td style="text-align: center;">0.1841</td>
+ 							           		<td style="text-align: center;">0.2336</td>
+							            	<td><code>C: 0.1</code>, <code>epsilon: 0.1</code></td>
+							        	</tr>
+ 							       		<tr>
+							            	<td><strong>Random Forest</strong></td>
+							            	<td style="text-align: center;">0.1645</td>
+							            	<td style="text-align: center;">0.2364</td>
+ 							           		<td><code>max_depth: 10</code>, <code>n_estimators: 500</code></td>
+							        	</tr>
+							    	</tbody>
+								</table>
+
+								<blockquote style="margin: 1.5em 10px; padding: 0.5em 10px; border-left: 5px solid #ccc;">
+ 							   		<strong>Architectural Takeaway:</strong> The convergence of the Elastic Net to a pure Lasso solution (L₁ ratio = 1.0) indicates that a fully sparse solution is optimal for navigating the intense multicollinearity in the feature space (e.g., the <em>r</em> = 0.88 correlation loop between BMI, waist circumference, and weight). The lower comparative performance of the Random Forest suggests that additive linear relationships dominate the signal over complex non-linear interactions within this cohort.
+								</blockquote>
+								<h3>Model Diagnostics &amp; Explanatory Power</h3>
+
+		
+
+								<div class="row gtr-50">
+                                	<div class="col-7">
+                                    	<h4>1. Residual Behavior &amp; Specification Validation</h4>
+										<p>Diagnostic analysis of the Elastic Net residuals demonstrates robust model specification:</p>
+										<ul>
+ 							   				<li>Errors are distributed symmetrically around zero across the entire prediction range.</li>
+							    		</ul>
+                                	</div>
+                                	<div class="col-5">
+										<span class="image main"><img src="images/residualgraph.png" alt="Recording Academy graphic" /></span>
+                                    
+                                	</div>
+                            	</div>
+								<ul>
+									<li>The absence of curvature or funnel-shaped dispersion verifies that heteroskedasticity is minimized, proving the model is stable even when predicting extreme telomere lengths.</li>
+								</ul>
+								<p>Figure I: Lasso coefficient shrinkage path illustrating the survival of SDoH features over clinical markers as regularization penalty increases.</p>
+
+								<h4>2. Feature Hierarchy: Social Determinants vs. Clinical Labs</h4>
+								<p>Rather than relying on default model coefficients, feature importance was evaluated using <strong>Permutation Importance</strong> (10 repeated shuffles per feature), revealing a compelling structural narrative:</p>
+
+								<ul>
+							    	<li><strong>Chronological Age (<code>RIDAGEYR</code>):</strong> The dominant biological signal (<em>Pearson r</em> = -0.43), acting as the primary baseline benchmark.</li>
+							    	<li><strong>The SDoH Premium:</strong> Social Determinants of Health (SDoH)—including <strong>Race/Ethnicity (<code>RIDRETH1</code>)</strong>, <strong>Marital Status (<code>DMDMARTL</code>)</strong>, <strong>Household Size (<code>DMDHHSIZ</code>)</strong>, and <strong>Income-to-Poverty Ratio (<code>INDFMPIR</code>)</strong>—consistently outranked traditional clinical biomarkers like HbA1c (<code>LBXGH</code>) and total cholesterol (<code>LBXTC</code>).</li>
+							    	<li><strong>Lasso Selection Path Summary:</strong> As the regularization penalty (α) increased, clinical labs were eliminated early, while socioeconomic variables stubbornly persisted, showing they carry a more stable, long-term predictive footprint of environmental exposure.</li>
+								</ul>
+								<div class="row gtr-50">
+                                	<div class="col-6">
+                                    	<h4>3. Quantifying the "Genomic Gap"</h4>
+										<p>While an R² of 19.3% is modest for standard corporate KPI tracking, it represents a highly robust signal in non-genetic epidemiological modeling. The remaining residual variance visually encapsulates the well-documented <strong>"Genomic Gap"</strong>—the estimated 60–70% of telomere length variance driven strictly by hereditary factors not captured in survey data. This model successfully captures and simplifies the remaining ~20% environment / physiological variance boundary.</p>
+									
+                                	</div>
+                                	<div class="col-6">
+										<span class="image main"><img src="images/decaygraph copy.png" alt="Decay Graph" /></span>
+                                    
+                                	</div>
+                            	</div>
+								<p>Figure II: Actual vs. Predicted Telomere Length. The residual ”spread” visually quantifies the missing genomic variance not captured by clinical or social data.</p>
+
+							</section>
+
+					</div>
+
+				<!-- Footer -->
+					
+
+				<!-- Copyright -->
+					<div id="copyright">
+						<ul><li>&copy; 2026 Kenzie Markley. All rights reserved.</li></ul>
+					</div>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>

@@ -1,0 +1,160 @@
+<!DOCTYPE HTML>
+<!--
+	Massively by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Generic Page - Massively by HTML5 UP</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						
+					</header>
+
+				<!-- Nav -->
+					<nav id="nav">
+						<ul class="links">
+							<li><a href="index.html">My Projects</a></li>
+							<li class="active"><a href="Project3.html">This Project</a></li>
+							<li><a href="AboutMe.html">About Me</a></li>
+						</ul>
+						<ul class="icons">
+							<li><a href="#" class="icon brands fa-linkedin"><span class="label">LinkedIn</span></a></li>
+							<li><a href="#" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+					<div id="main">
+
+						<!-- Post -->
+							<section class="post">
+								<h1>Corporate Sustainability Analytics</h1>
+							
+                            	<h3>Executive Summary</h3>
+                            	<p>As part of its commitment to circular economy principles, e-waste reduction, and supply chain carbon footprint optimization, Intel operates large-scale hardware lifecycles designed to repurpose and reallocate internal assets. This analysis evaluates historical lifecycle tracking logs across <strong>601,740 repurposed devices</strong> to identify pipeline bottlenecks, uncover asset disposal anomalies, and determine which hardware subsets should be prioritized to maximize annualized energy savings (kWh) and greenhouse gas (CO<sub>2</sub>) emission mitigation.</p>
+
+                            	<h3>Data Infrastructure &amp; Relational Engineering</h3>
+                            	<p>The engineering phase required cleaning and joining disparate hardware demographic databases with localized environmental impact matrices over an active tracking schema profile (<em>N</em> &gt; 601,000 records) to generate a unified analytics layer:</p>
+
+                            	<ul>
+                                	<li><strong>Multi-Table Synthesis:</strong> Implemented explicit table aliasing and relational inner joins on unique asset identifiers (<code>device_id</code>) to bridge raw hardware profiles with dynamic sustainability metrics.</li>
+                                	<li><strong>Temporal Feature Engineering:</strong> Constructed mathematical age constraints derived from static baseline timestamps (<code>2024 - model_year</code>) to track decay characteristics across historical asset generations.</li>
+                                	<li><strong>Conditional Logic Bucketing:</strong> Leveraged <code>CASE WHEN</code> logical expressions to segregate highly diverse, unsegmented device life spans into standardized operational clusters (<code>newer</code>, <code>mid-age</code>, and <code>older</code>) for localized macro trend evaluation.</li>
+                            	</ul>
+
+                            	<pre><code>-- Centralized Pipeline Configuration &amp; Conditional Bucketing
+SELECT a.device_id,
+       a.device_type,
+       a.model_year,
+       a.region,
+       b.energy_savings_yr,
+       b.co2_saved_kg_yr,
+       (2024 - a.model_year) AS device_age,
+       CASE
+           WHEN (2024 - a.model_year) &lt;= 3 THEN 'newer'
+           WHEN (2024 - a.model_year) &gt; 3 AND (2024 - a.model_year) &lt;= 6 THEN 'mid-age'
+           ELSE 'older'
+       END AS device_age_bucket
+FROM intel.device_data a
+JOIN intel.impact_data b 
+  ON a.device_id = b.device_id;</code></pre>
+
+                            	<h3>Analytical Deep Dive &amp; Core Sustainability Insights</h3>
+
+                            	<h4>1. Aggregate Macro Environmental Footprint</h4>
+                            	<p>Summing behavioral metrics across global business units isolates the immense structural scale of the initiative. A single repurposed device saves an average of <strong>25.74 kWh per year</strong>. Aggregated across the entire enterprise portfolio, the program yields:</p>
+                            	<ul>
+                            	    <li><strong>15.5 Million kWh</strong> of annual electricity saved (the energy equivalent required to power approximately <strong>1,475 residential homes</strong> for a year).</li>
+                            	    <li><strong>6,768 Tons of CO<sub>2</sub></strong> emissions completely mitigated (the equivalent environmental benefit of removing <strong>1,470 combustion engine vehicles</strong> from the road).</li>
+                            	</ul>
+
+                            	<h4>2. The Volume vs. Efficiency Paradox (Age Cohorts)</h4>
+                            	<p>Segmenting the data by the engineered age variables revealed a critical strategic misalignment within intake logistics. While newer assets (under 3 years old) make up the overwhelming majority of incoming volume, their per-device environmental return is low. Conversely, <strong>older hardware configurations (6+ years old) yield the highest individual offsets</strong>, saving more than double the energy volume per device compared to newer models.</p>
+
+                            	<pre><code>Per-Device Energy Savings (kWh)
+  ▲
+100 │                                 ■ [Older Devices: Max Per-Device Impact]
+ 75 │
+ 50 │                 ■ [Mid-Age]
+ 25 │  ■ [Newer]
+  0 └──┴───────────────┴───────────────┴────────────────► Device Age Bucket
+       (High Volume)                 (Low Volume)</code></pre>
+
+                            	<h4>3. Regional Carbon Intensity Variance</h4>
+                            	<p>Geographical matrix tracking demonstrated that while physical power consumption mitigation (kWh) remains relatively uniform across global operational boundaries, the <strong>true avoided carbon emissions (CO<sub>2</sub>) vary drastically by location</strong>. Repurposing identical hardware in <strong>Asia and North America</strong> yields significantly higher carbon offsets. This divergence is driven entirely by local electrical grid profiles; regions that rely more heavily on fossil fuels experience a magnified environmental offset when grid demand is reduced by an optimized, repurposed machine.</p>
+
+                            	<h3>Advanced Optimization Matrix: Regional Contribution Weights</h3>
+                            	<p>To establish a priority framework for logistics management, an advanced query architecture utilizing nested <strong>Common Table Expressions (CTEs)</strong> was structured to isolate the exact percentage share of energy and carbon savings contributed by each hardware class against regional baselines:</p>
+
+                            	<pre><code>WITH joined_data AS (
+    SELECT a.device_type,
+           b.region,
+           b.energy_savings_yr,
+           b.co2_saved_kg_yr
+    FROM intel.device_data a
+    JOIN intel.impact_data b ON a.device_id = b.device_id
+),
+regional_totals AS (
+    SELECT region,
+           SUM(energy_savings_yr) AS total_energy_region,
+           SUM(co2_saved_kg_yr) AS total_co2_region
+    FROM joined_data
+    GROUP BY region
+)
+SELECT d.region,
+       d.device_type,
+       COUNT(*) AS total_devices,
+       SUM(d.energy_savings_yr) AS total_energy_savings,
+       SUM(d.co2_saved_kg_yr)/1000 AS total_co2_saved_tons,
+       (SUM(d.energy_savings_yr) / r.total_energy_region) * 100 AS pct_energy_contribution,
+       (SUM(d.co2_saved_kg_yr) / r.total_co2_region) * 100 AS pct_co2_contribution
+FROM joined_data d
+JOIN regional_totals r ON d.region = r.region
+GROUP BY d.region, d.device_type, r.total_energy_region, r.total_co2_region;</code></pre>
+
+                            	<h3>Strategic ESG Recommendations for Intel Supply Chain</h3>
+                            	<p>To maximize the ecological return on investment (ROI) across hardware processing nodes, the following data-backed interventions are recommended:</p>
+
+                            	<ol>
+                            	    <li><strong>Prioritize High-Yield Legacy Collections Over Sheer Scale:</strong> Shift intake targets from general consumer/commercial collections toward targeted corporate and enterprise partnerships to intentionally source older desktop configurations, optimizing processing overhead for maximum impact per unit.</li>
+                            	    <li><strong>Geographically Route Hardware Processing Pipelines:</strong> Target logistics and reallocation nodes toward regions with carbon-dense electrical grids. Scaling up reprocessing capabilities in <strong>Asia and North America</strong> ensures hardware extensions occur where they generate the largest net reduction in greenhouse gases.</li>
+                            	    <li><strong>Establish a Differentiated Segmentation Playbook:</strong> Maintain high-volume laptop workflows for broad digital literacy and social equity initiatives, but prioritize fixed desktop deployments in commercial and research channels where permanent power reductions yield stable, predictable sustainability metrics.</li>
+                            	</ol>
+
+							</section>
+
+					</div>
+
+				<!-- Footer -->
+					
+
+				<!-- Copyright -->
+					<div id="copyright">
+						<ul><li>&copy; 2026 Kenzie Markley. All rights reserved.</li></ul>
+					</div>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>

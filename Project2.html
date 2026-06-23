@@ -1,0 +1,158 @@
+<!DOCTYPE HTML>
+<!--
+	Massively by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Generic Page - Massively by HTML5 UP</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						
+					</header>
+
+				<!-- Nav -->
+					<nav id="nav">
+						<ul class="links">
+							<li><a href="index.html">My Projects</a></li>
+							<li class="active"><a href="Project2.html">This Project</a></li>
+							<li><a href="AboutMe.html">About Me</a></li>
+						</ul>
+						<ul class="icons">
+							<li><a href="#" class="icon brands fa-linkedin"><span class="label">LinkedIn</span></a></li>
+							<li><a href="#" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+					<div id="main">
+
+						<!-- Post -->
+							<section class="post">
+								<h1>Digital Platform Strategy</h1>
+							
+                            	<h3>Executive Summary</h3>
+                            	<p>In 2022, The Recording Academy’s VP of Digital Strategy, Ray Starck, executed a major structural pivot: splitting their unified digital presence into two distinct domains—<code>grammy.com</code> (consumer/audience-facing) and <code>recordingacademy.com</code> (industry/corporate-facing). This case study analyzes historical and post-split tracking data to evaluate the impact of this split, isolate user behavior across platforms, and provide data-driven recommendations to optimize user engagement and retention during peak cultural events.</p>
+
+                            	<h3>Data Environment &amp; Feature Engineering</h3>
+                            	<p>The analysis was performed across multi-year tracking logs containing traffic metrics for both domains. To extract meaningful strategic insights, raw session parameters were transformed into distinct behavioral indicators:</p>
+
+                            	<ul>
+                                	<li><strong>KPI Engineering:</strong> Synthesized high-level metrics including <strong>Pages per Session</strong> (<code>pageviews</code> / <code>sessions</code>) and <strong>Bounce Rate</strong> percentages to quantify deep user engagement versus superficial click-through behavior.</li>
+                                	<li><strong>Temporal Event Mapping:</strong> Engineered specific binary temporal flags—<code>awards_week</code> and <code>awards_night</code>—to separate baseline, "evergreen" traffic from viral, high-volume traffic spikes when seasonal pop-culture engagement peaks.</li>
+                                	<li><strong>Device Segmentation:</strong> Isolated and calculated the percentage share of mobile traffic versus desktop traffic to evaluate mobile-responsiveness needs during live event windows.</li>
+                           		</ul>
+
+                            	<h3>Analytical Deep Dive &amp; Behavioral Insights</h3>
+                            	<div class="row gtr-50">
+                                	<div class="col-6">
+                                    	<span class="image main"><img src="images/grammy.png" alt="Grammy graphic" /></span>
+                                	</div>
+                                	<div class="col-6">
+                                    	<span class="image main"><img src="images/recording.png" alt="Recording Academy graphic" /></span>
+                                	</div>
+                            	</div>
+                            	<h4>1. Temporal Traffic Anomaly Modeling</h4>
+                            	<p>Using time-series visualizations built in <code>Plotly Express</code>, the data maps an incredibly aggressive, cyclical demand curve.</p>
+
+                            	<pre><code>Traffic Volume
+  ▲
+  │             ▲ [Awards Night Spike: Millions of Users]
+  │            ╱ ╲
+  │           ╱   ╲
+  │          ╱     ╲
+  │         ╱       ╲     ▲ [Awards Week Build-up]
+  │________╱         ╲___╱ ╲_________ [Baseline Off-Season Traffic]
+  └──────────────────────────────────────────────────────────► Timeline</code></pre>
+
+                            	<ul>
+                                	<li><strong>The Trend:</strong> While baseline traffic remains stable and relatively low throughout the year, it experiences an explosive multi-million user spike during <code>awards_week</code>, culminating in a massive traffic peak on <code>awards_night</code>.</li>
+                                	<li><strong>Strategic Takeaway:</strong> This confirms that the consumer-facing platform (<code>grammy.com</code>) functions primarily as an event-driven media engine. It requires high scalability and low latency during a highly restricted operational window, rather than steady-state audience acquisition.</li>
+                            	</ul>
+
+                            	<h4>2. The Post-Split Segmentation Narrative</h4>
+                            	<p>By separating consumer traffic from industry professionals, the data reveals a clear divergence in user intent:</p>
+                            	<ul>
+                                	<li><strong><code>grammy.com</code> (The Consumer Hub):</strong> Characterized by immense visitor volume, shorter average session durations, and highly volatile bounce rates that scale alongside viral pop-culture moments. Users are looking for quick information—winners, fashion, and performance clips.</li>
+                                	<li><strong><code>recordingacademy.com</code> (The B2B Portal):</strong> Characterized by lower, highly predictable visitor volume but significantly stronger engagement depth. Users exhibit higher <em>Pages per Session</em> and longer <em>Average Session Durations</em>, signaling an industry audience interacting with dense content (e.g., voting guidelines, membership criteria, grant applications).</li>
+                            	</ul>
+
+                            	<h3>Competitor Benchmarking &amp; Core Performance Matrix</h3>
+                            	<p>Based on behavioral aggregates, the platform's digital footprint stands out in specific areas while presenting distinct optimization opportunities:</p>
+
+                            	<table border="1" cellpadding="5" cellspacing="0" style="border-collapse:collapse; width:100%;">
+                                	<thead>
+                                    	<tr style="background-color: #f2f2f2;">
+                                        	<th style="text-align: left;">Performance Area</th>
+                                        	<th style="text-align: left;">Strengths Identified</th>
+                                        	<th style="text-align: left;">Key Metric to Improve</th>
+                                        	<th style="text-align: left;">Strategic KPI Focus</th>
+                                    	</tr>
+                                	</thead>
+                                	<tbody>
+                                    	<tr>
+                                        	<td><strong>Peak Traffic Delivery</strong></td>
+                                        	<td>Exceptional volume capture during live broadcast windows.</td>
+                                        	<td>High transactional bounce rates during peak event hours.</td>
+                                        	<td><strong>Bounce Rate Mitigation</strong></td>
+                                    	</tr>
+                                    	<tr>
+                                        	<td><strong>Mobile Experience</strong></td>
+                                        	<td>Dominant mobile visitor share, proving strong cross-device accessibility.</td>
+                                        	<td>Session duration drop-off on complex pages.</td>
+                                        	<td><strong>Mobile UX Streamlining</strong></td>
+                                    	</tr>
+                                    	<tr>
+                                        	<td><strong>Platform Segmentation</strong></td>
+                                        	<td>Successfully isolated high-intent B2B users from general consumers.</td>
+                                        	<td>Conversion of consumer traffic into year-round engagement.</td>
+                                        	<td><strong>Evergreen Funnel Conversion</strong></td>
+                                    	</tr>
+                                	</tbody>
+                            	</table>
+
+                            	<h3>Strategic Consulting Recommendations</h3>
+                            	<p>To fully leverage the dual-website architecture, the following data-driven strategies are proposed:</p>
+
+                            	<ol>
+                                	<li><strong>Infrastructure Scalability &amp; Caching for Peak Windows:</strong> Because consumer traffic is heavily consolidated into a single week, prioritize server bandwidth allocation and page-weight optimization for <code>grammy.com</code> during Awards Week. Reducing asset sizes and leveraging strict content delivery network (CDN) caching will combat latency and minimize the bounce rates caused by slow loading speeds on mobile networks during the broadcast.</li>
+                                	<li><strong>High-Value Funnel Integration for B2B Growth:</strong> Use the massive consumer traffic spikes on <code>grammy.com</code> as an acquisition funnel. Implement subtle, high-converting call-to-actions (CTAs) directing eligible independent creators and industry professionals to the membership portals on <code>recordingacademy.com</code>.</li>
+                                	<li><strong>Evergreen Content Calendars for Consumer Retention:</strong> To soften the post-awards traffic drop-off on <code>grammy.com</code>, deploy a targeted, year-round multimedia content strategy (e.g., "Behind the Record" deep dives, acoustic sessions, and genre-specific editorial pieces) to convert anonymous event-night viewers into consistent monthly active users (MAUs).</li>
+                           		</ol>
+
+							</section>
+
+					</div>
+
+				<!-- Footer -->
+					
+
+				<!-- Copyright -->
+					<div id="copyright">
+						<ul><li>&copy; 2026 Kenzie Markley. All rights reserved.</li></ul>
+					</div>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>

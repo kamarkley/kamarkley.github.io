@@ -1,0 +1,171 @@
+<!DOCTYPE HTML>
+<!--
+	Massively by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Generic Page - Massively by HTML5 UP</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						
+					</header>
+
+				<!-- Nav -->
+					<nav id="nav">
+						<ul class="links">
+							<li><a href="index.html">My Projects</a></li>
+							<li class="active"><a href="Project5.html">This Project</a></li>
+							<li><a href="AboutMe.html">About Me</a></li>
+						</ul>
+						<ul class="icons">
+							<li><a href="#" class="icon brands fa-linkedin"><span class="label">LinkedIn</span></a></li>
+							<li><a href="#" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+					<div id="main">
+
+						<!-- Post -->
+							<section class="post">
+								<h1>Epidemiological Modeling</h1>
+								<h3>Executive Summary</h3>
+                            	<p>Poor mental health remains a growing public health concern in the United States, yet the operational role of Complementary and Alternative Medicine (CAM) in supporting mental wellness remains under-researched. This study establishes a survey-weighted evaluation framework using the <strong>2012 National Health Interview Survey (NHIS)</strong> to examine how CAM use over a 12-month window relates to clinical mental health outcomes among U.S. adults. The goal is to determine whether these modalities function as accessible, non-conventional coping strategies that correlate with reduced psychological distress outside traditional clinical care settings.</p>
+
+                            	<h3>Data Methodology &amp; Survey-Weighted Operationalization</h3>
+                            	<p>To ensure population-level representation, the analysis utilized the complex survey design variables of the NHIS, applying primary sampling units (PSUs), stratification, and post-stratification weights. The dataset was structured around specific operational definitions:</p>
+
+                            	<ul>
+                            	    <li><strong>Dependent Variables (Poor Mental Health Classification):</strong> Poor mental health was operationalized as a binary flag defined by a high Kessler Pregnancy &amp; Mental Health psychological distress score (K6 ≥ 13) OR an affirmative response to taking prescription medication for acute anxiety or depression.</li>
+                            	    <li><strong>Independent Variables (CAM Modalities):</strong> Evaluated five distinct structural classifications of CAM usage: Chiropractic Care, Diet-Based CAM, Yoga/Mind-Body Practices, Homeopathy, and Energy Healing.</li>
+                            	    <li><strong>Statistical Framework:</strong> Developed survey-weighted Logistic Regression models to estimate odds ratios (ORs) for binary classification, paired with a Quasi-Poisson Regression pipeline to model overall K6 distress scores, effectively managing the right-skewed, count-based nature of psychological distress tracking.</li>
+                            	</ul>
+
+                            	<h3>Analytical Deep Dive &amp; Predictive Modeling Results</h3>
+
+                            	<h4>1. Binary Classification &amp; Single-Use Predicted Probabilities</h4>
+                            	<p>Survey-weighted logistic regression models demonstrated a stark, statistically significant shift in the likelihood of poor mental health outcomes between non-users and single-use participants. Holding key socioeconomic covariates constant, the marginal effects show an intense protective profile even at the baseline single-use intercept:</p>
+
+                            	<table border="1" cellpadding="5" cellspacing="0" style="border-collapse:collapse; width:100%;">
+                            	    <thead>
+                            	        <tr style="background-color: #f2f2f2;">
+                            	            <th style="text-align: left;">CAM Exposure Level</th>
+                            	            <th style="text-align: center;">Predicted Probability of Poor Mental Health</th>
+                            	            <th style="text-align: center;">Standard Error (SE)</th>
+                            	            <th style="text-align: left;">Clinical Operational Context</th>
+                            	        </tr>
+                            	    </thead>
+                            	    <tbody>
+                            	        <tr>
+                            	            <td><strong>No CAM Engagement (CAM = 0)</strong></td>
+                            	            <td style="text-align: center;"><strong>0.8361</strong></td>
+                            	            <td style="text-align: center;">0.0024</td>
+                            	            <td>Baseline cohort meeting criteria for severe distress/medication dependency.</td>
+                            	        </tr>
+                            	        <tr>
+                            	            <td><strong>Single CAM Engagement (CAM = 1)</strong></td>
+                            	            <td style="text-align: center;"><strong>0.0202</strong></td>
+                            	            <td style="text-align: center;">0.0058</td>
+                            	            <td>A dramatic reduction in predicted probability among individuals with baseline usage.</td>
+                            	        </tr>
+                            	    </tbody>
+                            	</table>
+
+                            	<h4>2. High-Frequency Exposure Dynamics</h4>
+                            	<p>Time-series and frequency-response modeling demonstrated a continuous dose-response trend. Increased frequency of CAM engagement consistently corresponded with compounding protective benefits. For instance, each additional discrete unit increase in diet-based CAM usage was linked to a <strong>~27% decrease in the odds</strong> of qualifying for the poor mental health cohort, a pattern structurally mirrored across homeopathy, chiropractic, and yoga/mind-body clusters.</p>
+
+                            	<pre><code>Predicted Probability of Poor Mental Health
+     ▲
+ 1.0 │  ■ [Non-Users: 0.8361]
+ 0.8 │
+ 0.6 │
+ 0.4 │
+ 0.2 │
+ 0.0 │___________■ [Single-Use: 0.0202]___________■ [Frequent Users: Asymptotic Decay]
+     └────────────────────────────────────────────────────────► Frequency of CAM Use</code></pre>
+
+                            	<h4>3. Distress Severity Modeling: Quasi-Poisson Regression</h4>
+                            	<p>To audit full-scale psychological distress behavior without losing information to binary thresholds, K6 count scores were evaluated using a Quasi-Poisson framework. Every analyzed CAM modality emerged as a statistically significant predictor of lower psychological distress scores, with Incidence Rate Ratios (IRR) demonstrating robust control after adjusting for Age, Sex, Education (EDU), and Income:</p>
+
+                            	<table border="1" cellpadding="5" cellspacing="0" style="border-collapse:collapse; width:100%;">
+                            	    <thead>
+                            	        <tr style="background-color: #f2f2f2;">
+                            	            <th style="text-align: center;">Model Variable</th>
+                            	            <th style="text-align: center;">Intercept</th>
+                            	            <th style="text-align: center;">Chiropractic</th>
+                            	            <th style="text-align: center;">Diet-Based</th>
+                            	            <th style="text-align: center;">Yoga/Mind-Body</th>
+                            	            <th style="text-align: center;">Homeopathy</th>
+                            	            <th style="text-align: center;">Energy Healing</th>
+                            	            <th style="text-align: center;">Age</th>
+                            	            <th style="text-align: center;">Sex</th>
+                            	            <th style="text-align: center;">Edu</th>
+                            	            <th style="text-align: center;">Income</th>
+                            	        </tr>
+                            	    </thead>
+                            	    <tbody>
+                            	        <tr>
+                            	            <td><strong>Beta Coefficient</strong></td>
+                            	            <td style="text-align: center;">36.556</td>
+                            	            <td style="text-align: center;">0.195</td>
+                            	            <td style="text-align: center;">0.282</td>
+                            	            <td style="text-align: center;">0.314</td>
+                            	            <td style="text-align: center;">0.555</td>
+                            	            <td style="text-align: center;">0.640</td>
+                            	            <td style="text-align: center;">0.993</td>
+                            	            <td style="text-align: center;">0.979</td>
+                            	            <td style="text-align: center;">0.997</td>
+                            	            <td style="text-align: center;">1.003</td>
+                            	        </tr>
+                            	    </tbody>
+                            	</table>
+
+                            	<blockquote style="margin: 1.5em 10px; padding: 0.5em 10px; border-left: 5px solid #ccc;">
+                            	    <strong>Methodological Takeaway:</strong> The model isolates the strongest protective correlation (lowest relative distress incidence) within the <strong>Chiropractic, Diet-Based, and Yoga/Mind-Body</strong> usage cohorts. Socioeconomic parameters scale predictably, but the persistence of robust CAM coefficients establishes their value as meaningful signals within the broader environmental model.
+                            	</blockquote>
+
+                            	<h3>Public Health &amp; Clinical Integration Recommendations</h3>
+                            	<p>While cross-sectional survey data cannot establish direct causal mechanisms, these highly consistent, adjusted statistical associations suggest actionable pathways for clinical public health frameworks:</p>
+
+                            	<ol>
+                            	    <li><strong>Incorporate Holistic Modalities into Patient Intake Profiles:</strong> Given that a vast majority of patients engage with CAM independently without communicating with primary clinicians, healthcare systems should normalize the tracking of non-conventional coping mechanisms within electronic health records (EHR) to catch hidden behavioral markers.</li>
+                            	    <li><strong>Evidence-Based Guidance for Integrative Care:</strong> Public health agencies can leverage these distinct protective patterns—particularly the high-performing profiles of mind-body practices and dietary tracking—to build out validated, integrative treatment guidelines that supplement standard pharmaceutical or psychiatric protocols.</li>
+                            	    <li><strong>Targeted Resource Allocation for Low-Barrier Wellness:</strong> Because even single-use engagement corresponds with drastically lower probability brackets of severe mental distress, community wellness initiatives should focus on scaling public access to foundational mind-body education programs to serve as proactive, low-cost preventative healthcare buffers.</li>
+                            	</ol>				
+							</section>
+
+					</div>
+
+				<!-- Footer -->
+					
+
+				<!-- Copyright -->
+					<div id="copyright">
+						<ul><li>&copy; 2026 Kenzie Markley. All rights reserved.</li></ul>
+					</div>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
