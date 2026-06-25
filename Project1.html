@@ -46,7 +46,7 @@
 								<p>This project establishes a supervised learning framework to identify the primary clinical and socioeconomic drivers of mean leukocyte telomere length (<code>TELOMEAN</code>) using the multi-year <strong>NHANES (1999–2002)</strong> dataset. Rather than optimizing blindly for predictive scores, this study focuses on <strong>model integrity, rigorous data cleaning, and variance-bias diagnostics</strong> to isolate the environmental and social "weathering" components of biological aging.</p>
 
 								<h3>Data Engineering &amp; Targeted Preprocessing</h3>
-								<p>Real-world epidemiological data contains structural traps. The initial dataset of 21,004 records was optimized down to an analytic sample of <strong>5,801 complete observations</strong> using a disciplined, domain-specific ETL pipeline:</p>
+								<p>Real-world epidemiological data contains structural traps. The initial dataset of 134,515 records was optimized down to an analytic sample of <strong>5,407 complete observations</strong> using a disciplined, domain-specific ETL pipeline:</p>
 
 								<ul>
 							    	<li><strong>Sentinel Value Auditing:</strong> Replaced non-biological survey artifacts and invalid placeholder responses (e.g., survey codes 7, 9, 888) with <code>NaN</code> on a feature-specific basis to eliminate artificial variance.</li>
@@ -57,7 +57,7 @@
 								<h3>Multi-Architecture Modeling Strategy</h3>
 								<p>To evaluate variance-bias trade-offs, three distinct model architectures were optimized using <code>GridSearchCV</code> paired with a strict <strong>5-fold cross-validation</strong> protocol (<em>k</em> = 5, shuffled with a fixed seed).</p>
 
-								<pre><code>              [ Cleaned NHANES Dataset (N = 5,801) ]
+								<pre><code>              [ Cleaned NHANES Dataset (N = 5,407) ]
                                  │
                 [ 5-Fold Cross-Validation Split ]
             ┌────────────────────┼────────────────────┐
@@ -96,7 +96,7 @@
 							        	</tr>
  							       		<tr>
 							            	<td><strong>Random Forest</strong></td>
-							            	<td style="text-align: center;">0.1645</td>
+							            	<td style="text-align: center;">0.1646</td>
 							            	<td style="text-align: center;">0.2364</td>
  							           		<td><code>max_depth: 10</code>, <code>n_estimators: 500</code></td>
 							        	</tr>
@@ -119,7 +119,7 @@
 							    		</ul>
                                 	</div>
                                 	<div class="col-5">
-										<span class="image main"><img src="images/residualgraph.png" alt="Recording Academy graphic" /></span>
+										<span class="image main"><img src="images/residualgraph.png" alt="Elastic Net Residual Plot" /></span>
                                     
                                 	</div>
                             	</div>
@@ -132,9 +132,9 @@
 								<p>Rather than relying on default model coefficients, feature importance was evaluated using <strong>Permutation Importance</strong> (10 repeated shuffles per feature), revealing a compelling structural narrative:</p>
 
 								<ul>
-							    	<li><strong>Chronological Age (<code>RIDAGEYR</code>):</strong> The dominant biological signal (<em>Pearson r</em> = -0.43), acting as the primary baseline benchmark.</li>
-							    	<li><strong>The SDoH Premium:</strong> Social Determinants of Health (SDoH)—including <strong>Race/Ethnicity (<code>RIDRETH1</code>)</strong>, <strong>Marital Status (<code>DMDMARTL</code>)</strong>, <strong>Household Size (<code>DMDHHSIZ</code>)</strong>, and <strong>Income-to-Poverty Ratio (<code>INDFMPIR</code>)</strong>—consistently outranked traditional clinical biomarkers like HbA1c (<code>LBXGH</code>) and total cholesterol (<code>LBXTC</code>).</li>
-							    	<li><strong>Lasso Selection Path Summary:</strong> As the regularization penalty (α) increased, clinical labs were eliminated early, while socioeconomic variables stubbornly persisted, showing they carry a more stable, long-term predictive footprint of environmental exposure.</li>
+							    	<li><strong>Chronological Age (<code>RIDAGEYR</code>):</strong> The dominant biological signal (<em>Permutation Importance</em> = 0.3036), acting as the primary baseline benchmark.</li>
+    								<li><strong>The SDoH Premium:</strong> Social Determinants of Health (SDoH)—including <strong>Race/Ethnicity (<code>RIDRETH1</code>: 0.0181)</strong> and <strong>Marital Status (<code>DMDMARTL</code>: 0.0046)</strong>—consistently outranked traditional clinical biomarkers.</li>
+    								<li><strong>The Lasso Elimination:</strong> Traditional risk factors like Total Cholesterol (<code>LBXTC</code>: 0.0000) and Blood Sugar (<code>LBXGH</code>: 0.0000) were driven to absolute zero importance by the optimal pure Lasso penalty, proving their predictive redundancy when evaluated alongside long-term socioeconomic exposure variables.</li>
 								</ul>
 								<div class="row gtr-50">
                                 	<div class="col-6">
@@ -150,7 +150,7 @@
 								<p>Figure II: Actual vs. Predicted Telomere Length. The residual ”spread” visually quantifies the missing genomic variance not captured by clinical or social data.</p>
 
 								<ul class="actions special">
-    								<li><a href="https://github.com/kamarkley/ModelingBiologicalAging" class="button large" target="_blank" rel="noopener noreferrer">Link to Code</a></li>
+    								<li><a href="https://github.com/kamarkley/ModelingBiologicalAging" class="button large" target="_blank" rel="noopener noreferrer">View Pipeline on GitHub</a></li>
 								</ul>
 							</section>
 
