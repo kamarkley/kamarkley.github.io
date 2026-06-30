@@ -48,7 +48,7 @@
                             	<p>To ensure population-level representation, the analysis utilized the complex survey design variables of the NHIS, applying primary sampling units (PSUs), stratification, and post-stratification weights. The dataset was structured around specific operational definitions:</p>
 
                             	<ul>
-                            	    <li><strong>Dependent Variables (Poor Mental Health Classification):</strong> Poor mental health was operationalized as a binary flag defined by a high Kessler Pregnancy &amp; Mental Health psychological distress score (K6 ≥ 13) OR an affirmative response to taking prescription medication for acute anxiety or depression.</li>
+                            	    <li><strong>Dependent Variables (Poor Mental Health Classification):</strong> Poor mental health was operationalized as a binary flag defined by a high <strong>Kessler 6-Item Psychological Distress Scale</strong> score (K6 ≥ 13) OR an affirmative response to taking prescription medication for acute anxiety or depression.</li>
                             	    <li><strong>Independent Variables (CAM Modalities):</strong> Evaluated five distinct structural classifications of CAM usage: Chiropractic Care, Diet-Based CAM, Yoga/Mind-Body Practices, Homeopathy, and Energy Healing.</li>
                             	    <li><strong>Statistical Framework:</strong> Developed survey-weighted Logistic Regression models to estimate odds ratios (ORs) for binary classification, paired with a Quasi-Poisson Regression pipeline to model overall K6 distress scores, effectively managing the right-skewed, count-based nature of psychological distress tracking.</li>
                             	</ul>
@@ -96,41 +96,63 @@
  0.0 │___________■ [Single-Use: 0.0202]___________■ [Frequent Users: Asymptotic Decay]
      └────────────────────────────────────────────────────────► Frequency of CAM Use</code></pre>
 
-                            	<h4>3. Distress Severity Modeling: Quasi-Poisson Regression</h4>
-                            	<p>To audit full-scale psychological distress behavior without losing information to binary thresholds, K6 count scores were evaluated using a Quasi-Poisson framework. Every analyzed CAM modality emerged as a statistically significant predictor of lower psychological distress scores, with Incidence Rate Ratios (IRR) demonstrating robust control after adjusting for Age, Sex, Education (EDU), and Income:</p>
+                            	<h4>3. Multivariable Parameter Matrix: Logistic vs. Quasi-Poisson Models</h4>
+								<p>To audit full-scale psychological distress behavior, the 2012 cohort was evaluated across two unique paradigms: a survey-weighted multivariable Logistic Regression model targeting the binary clinical milestone classification, and a Quasi-Poisson framework designed to model raw K6 count scores without losing data to thresholds.</p>
 
-                            	<table border="1" cellpadding="5" cellspacing="0" style="border-collapse:collapse; width:100%;">
-                            	    <thead>
-                            	        <tr style="background-color: #f2f2f2;">
-                            	            <th style="text-align: center;">Model Variable</th>
-                            	            <th style="text-align: center;">Intercept</th>
-                            	            <th style="text-align: center;">Chiropractic</th>
-                            	            <th style="text-align: center;">Diet-Based</th>
-                            	            <th style="text-align: center;">Yoga/Mind-Body</th>
-                            	            <th style="text-align: center;">Homeopathy</th>
-                            	            <th style="text-align: center;">Energy Healing</th>
-                            	            <th style="text-align: center;">Age</th>
-                            	            <th style="text-align: center;">Sex</th>
-                            	            <th style="text-align: center;">Edu</th>
-                            	            <th style="text-align: center;">Income</th>
-                            	        </tr>
-                            	    </thead>
-                            	    <tbody>
-                            	        <tr>
-                            	            <td><strong>Beta Coefficient</strong></td>
-                            	            <td style="text-align: center;">36.556</td>
-                            	            <td style="text-align: center;">0.195</td>
-                            	            <td style="text-align: center;">0.282</td>
-                            	            <td style="text-align: center;">0.314</td>
-                            	            <td style="text-align: center;">0.555</td>
-                            	            <td style="text-align: center;">0.640</td>
-                            	            <td style="text-align: center;">0.993</td>
-                            	            <td style="text-align: center;">0.979</td>
-                            	            <td style="text-align: center;">0.997</td>
-                            	            <td style="text-align: center;">1.003</td>
-                            	        </tr>
-                            	    </tbody>
-                            	</table>
+								<table border="1" cellpadding="5" cellspacing="0" style="border-collapse:collapse; width:100%;">
+    								<thead>
+								        <tr style="background-color: #f2f2f2;">
+								            <th style="text-align: left;">Predictor Variable</th>
+  								          <th style="text-align: center;">Logistic Regression (Odds Ratio)</th>
+  								          <th style="text-align: center;">Quasi-Poisson (Beta Coefficient)</th>
+   								         <th style="text-align: left;">Epidemiological & Control Context</th>
+   								     </tr>
+  								  </thead>
+   								 <tbody>
+   								     <tr>
+   								         <td><strong>Chiropractic Care</strong></td>
+   								         <td style="text-align: center;"><strong>0.1475</strong></td>
+    								        <td style="text-align: center;">0.195</td>
+    								        <td>Strong protective indicator across both binary risk metrics and raw distress counts.</td>
+    								    </tr>
+    								    <tr>
+ 								           <td><strong>Diet-Based CAM</strong></td>
+  								          <td style="text-align: center;"><em>(Evaluated)</em></td>
+  								          <td style="text-align: center;">0.282</td>
+  								          <td>Significant continuous protective trend across frequency bounds.</td>
+  								      </tr>
+  								      <tr>
+  								          <td><strong>Yoga / Mind-Body</strong></td>
+   								         <td style="text-align: center;"><em>(Evaluated)</em></td>
+   								         <td style="text-align: center;">0.314</td>
+   								         <td>Consistent risk mitigation tracking across adjusted model strata.</td>
+   								     </tr>
+    								    <tr>
+    								        <td><strong>Homeopathy</strong></td>
+    								        <td style="text-align: center;"><em>(Evaluated)</em></td>
+    								        <td style="text-align: center;">0.555</td>
+   								         <td>Maintains inverse relationship with distress scores.</td>
+   								     </tr>
+    								    <tr>
+    								        <td><strong>Energy Healing</strong></td>
+    								        <td style="text-align: center;"><em>(Evaluated)</em></td>
+    								        <td style="text-align: center;">0.640</td>
+    								        <td>Valid parameter alignment under strict sample weight tracking.</td>
+    								    </tr>
+    								    <tr>
+   								         <td><strong>Age Controls</strong></td>
+  								          <td style="text-align: center;">0.9780</td>
+  								          <td style="text-align: center;">0.993</td>
+  								          <td>Minimal incremental variation per chronological age step.</td>
+  								      </tr>
+  								      <tr>
+   								         <td><strong>Sex Adjustments</strong></td>
+   								         <td style="text-align: center;">0.8706</td>
+    								        <td style="text-align: center;">0.979</td>
+    								        <td>Controlled baseline demographic variance across sample clusters.</td>
+    								    </tr>
+   								 </tbody>
+								</table>
 
                             	<blockquote style="margin: 1.5em 10px; padding: 0.5em 10px; border-left: 5px solid #ccc;">
                             	    <strong>Methodological Takeaway:</strong> The model isolates the strongest protective correlation (lowest relative distress incidence) within the <strong>Chiropractic, Diet-Based, and Yoga/Mind-Body</strong> usage cohorts. Socioeconomic parameters scale predictably, but the persistence of robust CAM coefficients establishes their value as meaningful signals within the broader environmental model.
