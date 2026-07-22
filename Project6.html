@@ -1,0 +1,261 @@
+<!DOCTYPE HTML>
+<!--
+	Massively by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Credit Card Fraud Detection</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						
+					</header>
+
+				<!-- Nav -->
+					<nav id="nav">
+						<ul class="links">
+							<li><a href="index.html">My Projects</a></li>
+							<li class="active"><a href="Project6.html">This Project</a></li>
+							<li><a href="AboutMe.html">About Me</a></li>
+						</ul>
+						<ul class="icons">
+							<li><a href="https://www.linkedin.com/in/kenzie-markley-a6296a294/" class="icon brands fa-linkedin"><span class="label">LinkedIn</span></a></li>
+							<li><a href="https://github.com/kamarkley/credit-card-fraud-detection" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+					<div id="main">
+
+						<!-- Post -->
+							<section class="post">
+								<h1>Credit Card <br />
+									Fraud Detection</h1>
+							    <h3>Executive Summary</h3>
+
+								<p>
+								This project establishes an end-to-end supervised learning framework for detecting fraudulent credit card transactions under extreme class imbalance. Rather than optimizing blindly for predictive accuracy, this study investigates how different <strong>imbalance mitigation strategies</strong>—including class weighting, synthetic oversampling, and balanced ensemble methods—impact the precision-recall trade-offs inherent to fraud detection.
+								</p>
+
+								<p>
+								Using the European Credit Card Fraud Detection dataset containing <strong>284,807 transactions</strong> and only <strong>492 fraudulent events (0.17%)</strong>, this analysis evaluates five machine learning architectures to determine which modeling strategy best balances fraud identification with false-positive control.
+								</p>
+
+
+								<h3>Data Engineering &amp; Imbalance-Aware Preprocessing</h3>
+
+								<p>
+								Fraud detection presents a unique modeling challenge because fraudulent transactions are significantly underrepresented. A naive classifier can achieve extremely high accuracy while failing to identify meaningful fraud patterns. The preprocessing pipeline was designed to preserve realistic transaction distributions while preventing information leakage throughout model development.
+								</p>
+
+								<ul>
+								    <li>
+								        <strong>Feature Isolation:</strong> Separated anonymized PCA-transformed transaction variables (<code>V1-V28</code>), transaction amount, and time features from the binary fraud target (<code>Class</code>).
+								    </li>
+
+								    <li>
+								        <strong>Leakage Prevention:</strong> Implemented preprocessing and modeling workflows using Scikit-Learn compatible pipelines to ensure transformations occurred exclusively within training data.
+								    </li>
+
+								    <li>
+								        <strong>Imbalance Analysis:</strong> Identified severe class skew, with fraudulent transactions representing only <strong>0.17%</strong> of observations, motivating the evaluation of multiple imbalance strategies.
+								    </li>
+								</ul>
+
+
+								<h3>Multi-Architecture Modeling Strategy</h3>
+
+								<p>
+								To evaluate how algorithm choice and imbalance handling influence fraud detection, five classification approaches were developed and compared using consistent train-test splits and cross-validated hyperparameter optimization.
+								</p>
+
+
+								<pre><code>
+                [ Credit Card Transaction Dataset ]
+                              │
+                  [ Train/Test Stratified Split ]
+                              │
+        ┌─────────────────────┼─────────────────────┐
+        ▼                     ▼                     ▼
+
+ Logistic Regression     Balanced Random Forest    XGBoost
+(Class Weight / SMOTE)   (Balanced Sampling)      (SMOTE)
+
+                              │
+
+                    [ Performance Evaluation ]
+
+        Precision | Recall | F1 | ROC-AUC | PR-AUC
+								</code></pre>
+
+
+								<h3>Class Imbalance Strategy Comparison</h3>
+
+								<table border="1" cellpadding="5" cellspacing="0" style="border-collapse:collapse; width:100%;">
+								<thead>
+								<tr style="background-color:#f2f2f2;">
+								    <th style="text-align:left;">Model Architecture</th>
+								    <th style="text-align:center;">Imbalance Strategy</th>
+								    <th style="text-align:center;">PR-AUC</th>
+								    <th style="text-align:center;">Precision</th>
+ 								   <th style="text-align:center;">Recall</th>
+								    <th style="text-align:center;">F1</th>
+								</tr>
+								</thead>
+
+								<tbody>
+
+								<tr>
+								<td><strong>Logistic Regression</strong></td>
+								<td>Class Weights</td>
+								<td>0.72</td>
+								<td>0.06</td>
+								<td>0.92</td>
+								<td>0.11</td>
+								</tr>
+
+								<tr>
+								<td><strong>Logistic Regression</strong></td>
+								<td>SMOTE Oversampling</td>
+								<td>0.72</td>
+								<td>0.06</td>
+								<td>0.92</td>
+								<td>0.11</td>
+								</tr>
+
+								<tr>
+								<td><strong>Balanced Random Forest</strong></td>
+								<td>Balanced Bootstrap Sampling</td>
+								<td>0.76</td>
+								<td>0.13</td>
+								<td>0.90</td>
+								<td>0.22</td>
+								</tr>
+
+								<tr>
+								<td><strong>Random Forest</strong></td>
+								<td>No Explicit Balancing</td>
+								<td><strong>0.87</strong></td>
+								<td><strong>0.94</strong></td>
+								<td>0.83</td>
+								<td><strong>0.88</strong></td>
+								</tr>
+
+								<tr>
+								<td><strong>XGBoost</strong></td>
+								<td>SMOTE Oversampling</td>
+								<td>0.85</td>
+								<td>0.36</td>
+								<td><strong>0.89</strong></td>
+								<td>0.51</td>
+								</tr>
+
+								</tbody>
+								</table>
+
+
+								<h3>Model Diagnostics &amp; Performance Analysis</h3>
+
+
+								<div class="row gtr-50">
+
+								<div class="col-6">
+
+								<h4>1. Precision-Recall Trade-Off Analysis</h4>
+
+								<p>
+								Because fraud detection operates under extreme class imbalance, Precision-Recall analysis was prioritized over traditional accuracy metrics. The comparison revealed substantial differences in model behavior:
+								</p>
+
+								<ul>
+								<li><strong>Random Forest:</strong> Achieved the strongest balance between fraud detection and false-positive reduction, producing the highest PR-AUC and precision.</li>
+
+								<li><strong>XGBoost + SMOTE:</strong> Demonstrated excellent fraud coverage through high recall but generated more false positives due to aggressive synthetic minority learning.</li>
+
+								<li><strong>Logistic Regression:</strong> Maintained high recall but lacked sufficient precision, limiting practical fraud detection utility.</li>
+								</ul>
+
+								</div>
+
+
+								<div class="col-6">
+
+								<span class="image main">
+								<img src="images/overlayed_pr_auc_curves.png" alt="Precision Recall Curve Comparison">
+								</span>
+
+								</div>
+
+								</div>
+
+
+								<h4>2. Ensemble Learning Performance</h4>
+
+								<p>
+								The strongest-performing model was the standard Random Forest classifier, outperforming more aggressive imbalance-handling approaches. This suggests that ensemble diversity and bootstrap aggregation were sufficient to identify fraudulent transaction patterns without artificially modifying the minority class distribution.
+								</p>
+
+
+								<ul>
+								<li>
+								<strong>Highest PR-AUC:</strong> Random Forest achieved <strong>0.87</strong>, indicating the strongest ranking ability for fraudulent transactions.
+								</li>
+
+								<li>
+								<strong>False Positive Control:</strong> Random Forest achieved <strong>0.94 precision</strong>, substantially outperforming models trained with synthetic oversampling.
+								</li>
+
+								<li>
+								<strong>Balanced Detection:</strong> The model maintained strong recall (<strong>0.83</strong>) while avoiding excessive fraud alerts.
+								</li>
+								</ul>
+
+
+								<h3>Final Takeaway</h3>
+
+								<blockquote style="margin:1.5em 10px; padding:0.5em 10px; border-left:5px solid #ccc;">
+
+								<strong>Modeling Insight:</strong>
+								In highly imbalanced fraud detection environments, increasing minority representation does not automatically improve predictive performance. While SMOTE and balanced sampling strategies improved fraud sensitivity, they introduced substantial false-positive costs. The standard Random Forest architecture achieved the strongest operational balance by learning minority transaction patterns directly from the original distribution.
+
+								</blockquote>
+								<ul class="actions special">
+    								<li><a href="https://github.com/kamarkley/credit-card-fraud-detection" class="button large" target="_blank" rel="noopener noreferrer">View Pipeline on GitHub</a></li>
+								</ul>
+
+							</section>
+
+					</div>
+
+				<!-- Footer -->
+					
+
+				<!-- Copyright -->
+					<div id="copyright">
+						<ul><li>&copy; 2026 Kenzie Markley. All rights reserved.</li></ul>
+					</div>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
