@@ -4687,3 +4687,91 @@ input, select, textarea {
 		}
 
 	}
+
+.pawpredict-project .project-tagline {
+	font-size: 0.95rem;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	opacity: 0.75;
+	margin-top: -1rem;
+	margin-bottom: 2.5rem;
+}
+
+.project-highlights {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: 1rem;
+	margin: 2rem 0 3rem 0;
+}
+
+.project-highlight {
+	padding: 1.4rem;
+	border: 1px solid rgba(255, 255, 255, 0.12);
+	border-radius: 14px;
+	background: rgba(255, 255, 255, 0.035);
+}
+
+.project-highlight strong {
+	display: block;
+	font-size: 1.05rem;
+	margin-bottom: 0.45rem;
+}
+
+.project-highlight span {
+	font-size: 0.85rem;
+	line-height: 1.45;
+	opacity: 0.72;
+}
+
+.tech-stack-grid {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: 1rem;
+	margin: 2rem 0 3rem;
+}
+
+.tech-stack-grid > div {
+	padding: 1.5rem;
+	border-radius: 14px;
+	border: 1px solid rgba(255, 255, 255, 0.12);
+	background: rgba(255, 255, 255, 0.035);
+}
+
+.tech-stack-grid h4 {
+	margin-bottom: 0.75rem;
+}
+
+.tech-stack-grid p {
+	margin: 0;
+	line-height: 1.8;
+}
+
+.pawpredict-project pre {
+	margin: 2.5rem 0;
+	padding: 1.75rem;
+	border-radius: 14px;
+	overflow-x: auto;
+}
+
+.pawpredict-project code {
+	font-size: 0.88rem;
+}
+
+@media screen and (max-width: 980px) {
+	.project-highlights,
+	.tech-stack-grid {
+		grid-template-columns: repeat(2, 1fr);
+	}
+}
+
+@media screen and (max-width: 600px) {
+	.project-highlights,
+	.tech-stack-grid {
+		grid-template-columns: 1fr;
+	}
+
+	.pawpredict-project pre {
+		font-size: 0.72rem;
+		padding: 1rem;
+	}
+}
