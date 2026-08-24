@@ -1,0 +1,568 @@
+<!DOCTYPE HTML>
+<!--
+	Massively by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Generic Page - Massively by HTML5 UP</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						
+					</header>
+
+				<!-- Nav -->
+					<nav id="nav">
+						<ul class="links">
+							<li><a href="index.html">My Projects</a></li>
+							<li class="active"><a href="Project1.html">This Project</a></li>
+							<li><a href="AboutMe.html">About Me</a></li>
+						</ul>
+						<ul class="icons">
+							<li><a href="#" class="icon brands fa-linkedin"><span class="label">LinkedIn</span></a></li>
+							<li><a href="#" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+					<div id="main">
+
+						<!-- Post -->
+							<section class="post pawpredict-project">
+
+								<h1>PawPredict <br />
+									Personalized Puppy Intelligence</h1>
+
+								<p class="project-tagline">
+									<strong>Full-Stack Application • Behavioral Analytics • Machine Learning • Product Design</strong>
+								</p>
+
+								<h3>From Everyday Problem to End-to-End Product</h3>
+
+								<p>
+									<strong>PawPredict</strong> began with a simple question:
+									<em>Can a puppy's behavior be learned well enough to predict when they need to go outside?</em>
+								</p>
+
+								<p>
+									Rather than training a model on a static public dataset, I built the entire data-generating system from scratch.
+									PawPredict is a deployed, mobile-first behavioral tracking platform that collects longitudinal puppy activity,
+									transforms raw logs into structured time-series features, surfaces personalized behavioral insights, and estimates
+									the probability of a potty event occurring within the next <strong>10 minutes</strong>.
+								</p>
+							
+								<p>
+									The project spans the complete machine-learning product lifecycle:
+									<strong>product design, relational data modeling, frontend engineering, API development, behavioral data collection,
+									feature engineering, model evaluation, deployment, and iterative model improvement.</strong>
+								</p>
+							
+
+								<h3>The Core Product</h3>
+
+								<p>
+									PawPredict was designed around a key constraint that traditional datasets rarely capture:
+									<strong>real-life behavioral data is incomplete.</strong>
+									A dog may be sleeping overnight, home alone while the owner is working, or using a litter box outside an observed
+									window. Treating these periods as ordinary negative examples would create incorrect training labels.
+								</p>
+
+								<p>
+									I therefore designed the application to distinguish between <strong>events that are known precisely</strong>,
+									<strong>behavior known only within a time interval</strong>, and <strong>periods where the dog was not directly observed</strong>.
+									This allows the prediction pipeline to preserve uncertainty rather than silently converting missing information into false data.
+								</p>
+
+								<div class="project-highlights">
+									<div class="project-highlight">
+										<strong>Full Stack</strong>
+										<span>React + TypeScript + FastAPI + PostgreSQL</span>
+									</div>
+
+									<div class="project-highlight">
+										<strong>Live ML</strong>
+										<span>10-minute personalized potty-risk prediction</span>
+									</div>
+
+									<div class="project-highlight">
+										<strong>Longitudinal</strong>
+										<span>Behavioral data collected continuously over time</span>
+									</div>
+
+									<div class="project-highlight">
+										<strong>Production</strong>
+										<span>Deployed frontend, backend, and cloud database</span>
+									</div>
+								</div>
+
+
+								<h3>System Architecture</h3>
+
+								<p>
+									I developed PawPredict as a modular three-tier application so that data collection, analytics, and machine learning
+									could evolve independently without rebuilding the product.
+								</p>
+
+								<pre><code>
+                      PAWPREDICT ARCHITECTURE
+
+ ┌─────────────────────────────────────────────────────────┐
+ │                    React + TypeScript                    │
+ │                                                         │
+ │   Quick Log     Calendar     Insights     Settings      │
+ │       │             │            │            │          │
+ │       └─────────────┴────────────┴────────────┘          │
+ │                           │                              │
+ └───────────────────────────┼──────────────────────────────┘
+                             │ REST API
+                             ▼
+ ┌─────────────────────────────────────────────────────────┐
+ │                     FastAPI Backend                     │
+ │                                                         │
+ │   Event APIs        Analytics       ML Prediction       │
+ │   Calendar APIs     Aggregation     Feature Pipeline    │
+ │   Dog Profiles      Validation      Model Evaluation    │
+ │                                                         │
+ └───────────────────────────┼──────────────────────────────┘
+                             │ SQLAlchemy
+                             ▼
+ ┌─────────────────────────────────────────────────────────┐
+ │                 Supabase PostgreSQL                     │
+ │                                                         │
+ │  Dogs • Events • Observation Periods • Preferences     │
+ │  Calendar Items • Tracking Options • UI Configuration  │
+ │                                                         │
+ └───────────────────────────┼──────────────────────────────┘
+                             │
+                             ▼
+ ┌─────────────────────────────────────────────────────────┐
+ │                Personalized ML Pipeline                 │
+ │                                                         │
+ │   Historical Logs → Feature Engineering → Training     │
+ │              → Evaluation → Live Probability           │
+ └─────────────────────────────────────────────────────────┘
+								</code></pre>
+
+
+								<h3>Behavioral Data Engineering</h3>
+
+								<p>
+									The largest technical challenge was not selecting an algorithm—it was designing data that a model could trust.
+									Puppy activity is inherently temporal, partially observed, and dependent on previous events, so PawPredict uses an
+									event-driven schema rather than a conventional flat training table.
+								</p>
+
+								<ul>
+									<li>
+										<strong>Timestamped Event Logging:</strong>
+										Structured events capture behaviors including pee, poop, potty attempts, naps, nighttime sleep,
+										zoomies, treats, baths, and veterinary activity.
+									</li>
+
+									<li>
+										<strong>Observation-Aware Data:</strong>
+										Periods when the dog is unattended are stored explicitly rather than interpreted as inactivity.
+										Pee or poop discovered afterward can be associated with the interval without fabricating an exact timestamp.
+									</li>
+
+									<li>
+										<strong>Cross-Midnight Session Logic:</strong>
+										Sleep sessions are treated as continuous intervals and correctly allocated across calendar days instead
+										of incorrectly assigning the full duration to the day on which sleep began.
+									</li>
+
+									<li>
+										<strong>Configurable Event Taxonomy:</strong>
+										Tracking behavior is metadata-driven, allowing events, options, statistics, and charts to evolve without
+										hard-coding every interaction into the interface.
+									</li>
+
+									<li>
+										<strong>Data Quality Preservation:</strong>
+										Unknown behavior remains unknown. The system avoids converting unobserved periods into false negative
+										training examples, reducing label contamination before modeling begins.
+									</li>
+								</ul>
+
+
+								<h3>Personalized Machine Learning</h3>
+
+								<p>
+									The primary predictive task is framed as a rolling binary classification problem:
+									<strong>Given everything known at the current moment, will a potty event occur within the next 10 minutes?</strong>
+								</p>
+
+								<p>
+									Instead of treating each logged event as one training row, PawPredict reconstructs historical behavioral state at
+									regular time snapshots. Each snapshot represents what would have been known at that exact moment, preventing future
+									information from leaking backward into the feature set.
+								</p>
+
+								<pre><code>
+ Historical Behavioral Timeline
+              │
+              ▼
+     5-Minute State Snapshots
+              │
+              ▼
+ ┌───────────────────────────────┐
+ │      Feature Engineering      │
+ │                               │
+ │ • Minutes since last pee      │
+ │ • Minutes since last poop     │
+ │ • Minutes since waking        │
+ │ • Recent potty attempts       │
+ │ • Recent behavioral activity  │
+ │ • Pee / poop counts today     │
+ │ • Hour-of-day signals         │
+ │ • Day-of-week signals         │
+ │ • Observation state           │
+ │ • Puppy age                   │
+ └───────────────┬───────────────┘
+                 │
+                 ▼
+       Chronological Training
+                 │
+                 ▼
+       Logistic Regression
+                 │
+        ┌────────┴────────┐
+        ▼                 ▼
+  Model Evaluation     Live State
+        │                 │
+        └────────┬────────┘
+                 ▼
+      P(Potty in Next 10 Min)
+								</code></pre>
+
+
+								<h3>Why Logistic Regression First?</h3>
+
+								<p>
+									The initial production model intentionally uses <strong>Logistic Regression</strong> rather than jumping immediately
+									to a complex ensemble. With a growing personalized dataset, model interpretability and calibration are more useful
+									than maximizing training performance on a small sample.
+								</p>
+
+								<p>
+									The architecture supports separate models for:
+								</p>
+
+								<ul>
+									<li><strong>Any Potty:</strong> probability of either pee or poop occurring within 10 minutes.</li>
+									<li><strong>Pee:</strong> probability of a pee event within 10 minutes.</li>
+									<li><strong>Poop:</strong> probability of a poop event within 10 minutes.</li>
+								</ul>
+							
+								<p>
+									PawPredict evaluates classification performance using metrics appropriate for an imbalanced behavioral target,
+									including <strong>Precision-Recall AUC, ROC-AUC, and Brier Score</strong>.
+									Because the objective is a usable probability—not simply a correct class label—the Brier Score provides an important
+									measure of probability calibration.
+								</p>
+
+								<span class="image main"><img src="images/mlmodel.png" alt="" /></span>
+
+
+								<h3>Live Prediction Experience</h3>
+
+								<p>
+									The machine-learning pipeline is integrated directly into the application rather than existing only inside a notebook.
+									The Today dashboard requests the dog's current behavioral state from the FastAPI backend and returns live personalized estimates.
+								</p>
+							
+								<span class="image main"><img src="images/pawpredictai.png" alt="" /></span>
+
+								<p>
+									When sufficient training history is not yet available, the interface intentionally avoids presenting an immature model
+									as reliable. Instead, it displays a clearly labeled <strong>early personalized estimate</strong> derived from the dog's
+									observed routine. Once the dataset reaches the training threshold, the application automatically transitions to the
+									fitted machine-learning model.
+								</p>
+
+
+								<h3>Analytics &amp; Explainability</h3>
+
+								<p>
+									PawPredict extends beyond prediction by turning longitudinal event data into an interactive behavioral analytics dashboard.
+									Users can switch between Today, 7-day, 30-day, all-time, and custom ranges while the displayed metrics adapt to the
+									meaning of the selected period.
+								</p>
+
+								<span class="image main"><img src="images/insightrange.png" alt="" /></span>
+								<ul>
+									<li><strong>Potty Timing:</strong> hourly pee and poop distributions reveal recurring high-risk windows.</li>
+									<li><strong>Potty Outcomes:</strong> tracks successful potty locations and accidents over time.</li>
+									<li><strong>Behavioral Trends:</strong> activity levels can be analyzed across days and times of day.</li>
+									<li><strong>Sleep Analytics:</strong> interval-based duration calculations correctly account for sessions spanning midnight.</li>
+									<li><strong>Observation Coverage:</strong> distinguishes collected behavioral data from periods where behavior was unknown.</li>
+									<li><strong>Model Reporting:</strong> exposes validation metrics, positive training examples, dataset size, and influential model features.</li>
+								</ul>
+
+								<p>
+									Users can also customize which statistics and charts appear in Insights and select a global application accent color,
+									with preferences persisted in PostgreSQL.
+								</p>
+								<span class="image main"><img src="images/insights.png" alt="" /></span>
+
+
+								<h3>Calendar &amp; Longitudinal History</h3>
+
+								<p>
+									Because behavioral modeling improves with time, historical accessibility was treated as a core product requirement rather
+									than an afterthought. PawPredict includes a dedicated calendar interface that separates routine behavioral logs from
+									scheduled care events.
+								</p>
+
+								<ul>
+									<li>
+										<strong>Historical Drill-Down:</strong>
+										Selecting a date reveals that day's complete event timeline and daily analytics without cluttering the calendar itself.
+									</li>
+
+									<li>
+										<strong>Future Planning:</strong>
+										Veterinary appointments, grooming, baths, and other care items can be scheduled independently of completed historical events.
+									</li>
+
+									<li>
+										<strong>Longitudinal Exploration:</strong>
+										The same dataset powering machine learning can be explored manually to identify behavioral changes and recurring patterns.
+									</li>
+								</ul>
+
+								<span class="image main"><img src="images/calendar.png" alt="" /></span>
+
+								<h3>Product &amp; UX Engineering</h3>
+
+								<p>
+									PawPredict was built primarily for mobile use because behavioral data needs to be captured at the moment it happens.
+									The interface therefore prioritizes low-friction logging rather than traditional form-based data entry.
+								</p>
+
+								<ul>
+									<li>
+										<strong>Inline Quick Logging:</strong>
+										Selecting an event expands its relevant controls directly beneath the chosen action rather than forcing the user
+										to scroll to a separate form.
+									</li>
+
+									<li>
+										<strong>Dynamic Forms:</strong>
+										Location, state, numeric measurements, severity, and custom options appear only when supported by the selected event type.
+									</li>
+
+									<li>
+										<strong>Editable Timeline:</strong>
+										Historical events can be corrected or deleted to prevent logging mistakes from contaminating downstream analytics.
+									</li>
+							
+									<li>
+										<strong>Personalized Dashboard:</strong>
+										Users choose which statistics and visualizations matter to them and control their ordering.
+									</li>
+							
+									<li>
+										<strong>Responsive Navigation:</strong>
+										Today, Calendar, Insights, and Settings are organized as distinct application workflows for fast mobile navigation.
+									</li>
+								</ul>
+							
+							
+								<h3>Cloud Deployment</h3>
+							
+								<p>
+									The application was designed as a deployable production system rather than a local prototype:
+								</p>
+							
+								<pre><code>
+ Frontend
+ React + TypeScript + Vite
+            │
+            ▼
+         Vercel
+            │
+            ▼
+       HTTPS / REST
+            │
+            ▼
+         Render
+     FastAPI + Python
+            │
+            ▼
+        Supabase
+ PostgreSQL Cloud Database
+								</code></pre>
+
+								<p>
+									This separation allows the user interface, API layer, database schema, and machine-learning system to evolve independently
+									while maintaining a production deployment workflow through Git and GitHub.
+								</p>
+
+
+								<h3>Technology Stack</h3>
+
+								<div class="tech-stack-grid">
+
+									<div>
+										<h4>Frontend</h4>
+										<p>
+											React<br />
+											TypeScript<br />
+											Vite<br />
+											Recharts<br />
+											Responsive CSS
+										</p>
+									</div>
+
+									<div>
+										<h4>Backend</h4>
+										<p>
+											Python<br />
+											FastAPI<br />
+											SQLAlchemy<br />
+											Pydantic<br />
+											REST APIs
+										</p>
+									</div>
+
+									<div>
+										<h4>Data &amp; ML</h4>
+										<p>
+											PostgreSQL<br />
+											Supabase<br />
+											Scikit-Learn<br />
+											NumPy<br />
+											Feature Engineering
+										</p>
+									</div>
+
+									<div>
+										<h4>Engineering</h4>
+										<p>
+											Git / GitHub<br />
+											Vercel<br />
+											Render<br />
+											Database Migrations<br />
+											API Documentation
+										</p>
+									</div>
+
+								</div>
+
+
+								<h3>From Prediction to Decision Support</h3>
+
+								<p>
+									The long-term objective is not simply to display a probability. PawPredict is designed to translate behavioral predictions
+									into <strong>actionable recommendations</strong>.
+								</p>
+
+								<pre><code>
+								Behavioral History
+										+
+								Current Context
+										│
+										▼
+								Potty Risk Model
+										│
+										▼
+								Risk Forecast
+										│
+										▼
+							Recommended Potty Window
+										│
+										▼
+								Personalized Routine
+								</code></pre>
+
+								<p>
+									As additional longitudinal data accumulates, PawPredict can evaluate whether machine-learning predictions outperform
+									simpler behavioral heuristics such as fixed intervals after waking or previous potty events. This provides a measurable
+									baseline for determining whether increasing model complexity actually improves real-world decision support.
+								</p>
+
+
+								<h3>Why This Project Is Different</h3>
+
+								<p>
+									Many machine-learning projects begin with a clean dataset and end with a notebook.
+									<strong>PawPredict required building everything that happens before and after the model.</strong>
+								</p>
+
+								<p>
+									I had to determine what information should be collected, design the relational schema, create the logging experience,
+									handle uncertainty and missing observation windows, engineer temporal features without leakage, expose predictions through
+									an API, visualize them inside a production frontend, and create a system capable of improving as new behavioral data arrives.
+								</p>
+
+								<p>
+									The result is not simply a classifier—it is a <strong>full-stack personalized machine-learning product</strong>.
+								</p>
+
+
+								<h3>Future Product Direction</h3>
+
+								<p>
+									PawPredict currently learns from an individual dog's behavioral history, but the underlying architecture was designed
+									with a broader question in mind: <strong>Can a short period of structured observation be used to learn a personalized
+									routine for any dog?</strong>
+								</p>
+
+								<p>
+									A future multi-user version could combine individualized models with population-level patterns, allowing new users to
+									begin with generalized priors before progressively transitioning toward predictions learned from their own dog's behavior.
+									The same framework could eventually support personalized potty recommendations, routine detection, behavioral anomaly
+									detection, and adaptive scheduling.
+								</p>
+
+
+								<h3>Key Takeaway</h3>
+
+								<p>
+									<strong>PawPredict demonstrates the complete path from an unstructured real-world problem to a deployed intelligent product.</strong>
+									It combines software engineering, data architecture, behavioral analytics, machine learning, UX design, and product thinking
+									in a single continuously evolving system—while preserving one of the most important principles in applied data science:
+									<strong>the quality of a prediction begins with the quality of the data-generating process.</strong>
+								</p>
+
+								<ul class="actions special">
+    								<li><a href="https://github.com/kamarkley/pawpredict" class="button large" target="_blank" rel="noopener noreferrer">View Pipeline on GitHub</a></li>
+								</ul>
+
+							</section>
+
+					</div>
+
+				<!-- Footer -->
+					
+
+				<!-- Copyright -->
+					<div id="copyright">
+						<ul><li>&copy; 2026 Kenzie Markley. All rights reserved.</li></ul>
+					</div>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
